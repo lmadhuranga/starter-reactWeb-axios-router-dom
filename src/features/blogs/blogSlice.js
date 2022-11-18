@@ -3,9 +3,11 @@ import blogService from './blogService'
 
 const initialState = {
   blogs: [],
+  blog: {title:'', content:'', author:''},
   isError: false,
   isSuccess: false,
   isLoading: false,
+  isEdit: false,
   message: '',
 }
  
@@ -28,6 +30,24 @@ export const getBlogs = createAsyncThunk(
     }
   }
 ) 
+// Get user blogs
+export const loadArticle = createAsyncThunk(
+  'blogs/getArticle',
+  async (id, thunkAPI) => {
+    try {
+      // const token = thunkAPI.getState().auth.user.token
+      return await blogService.loadArticle(id)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+) 
 
 // Create new goal
 export const createArticle = createAsyncThunk(
@@ -35,7 +55,29 @@ export const createArticle = createAsyncThunk(
     async (blogData, thunkAPI) => {
         console.log(`msg_ blogData`,blogData);
       try {
-        const token = thunkAPI.getState().auth.user.toke
+        // const token = thunkAPI.getState().auth.user.toke
+        const token = 's'
+        console.log(`msg_ token`,token);
+        return await blogService.createArticle(blogData, token)
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString() 
+        return thunkAPI.rejectWithValue(message)
+      }
+    }
+)
+// Create new goal
+export const updateArticle = createAsyncThunk(
+    'blogs/create',
+    async (blogData, thunkAPI) => {
+        console.log(`msg_ blogData`,blogData);
+      try {
+        // const token = thunkAPI.getState().auth.user.toke
+        const token = 's'
         console.log(`msg_ token`,token);
         return await blogService.createArticle(blogData, token)
       } catch (error) {
@@ -80,6 +122,20 @@ export const blogSlice = createSlice({
           state.blogs = action.payload
         })
         .addCase(getBlogs.rejected, (state, action) => {
+          state.isLoading = false
+          state.isError = true
+          state.message = action.payload
+        })
+        .addCase(loadArticle.pending, (state) => {
+          state.isLoading = true
+        })
+        .addCase(loadArticle.fulfilled, (state, action) => { 
+          state.isLoading = false
+          state.isSuccess = true 
+          state.isEdit = true 
+          state.blog = action.payload
+        })
+        .addCase(loadArticle.rejected, (state, action) => {
           state.isLoading = false
           state.isError = true
           state.message = action.payload
