@@ -1,11 +1,67 @@
 {
-    "goals": [
-      { "id": 1, "text": "Madhuranga Senadhera", "user": "typicode" },
-      { "id": 2, "text": "Randika", "user": "typicode" },
-      { "id": 3, "text": "Tharaka", "user": "typicode" }
-    ],
-    "comments": [
-      { "id": 1, "body": "some comment", "postId": 1 }
-    ],
-    "profile": { "name": "typicode" }
+  "goals": [
+    {
+      "id": 1,
+      "text": "Madhuranga Senadhera",
+      "user": "typicode"
+    },
+    {
+      "id": 2,
+      "text": "Randika",
+      "user": "typicode"
+    },
+    {
+      "id": 3,
+      "text": "Tharaka",
+      "user": "typicode"
+    }
+  ],
+  "blogs": [
+    {
+      "id": 1,
+      "title": "Artical 1",
+      "content": "Artical 1 content",
+      "author": "lilan.maduranga@gmail.com"
+    },
+    {
+      "id": 2,
+      "title": "Artical 2",
+      "content": "Artical 2 content",
+      "author": "lilan.maduranga@gmail.com"
+    },
+    {
+      "id": 3,
+      "title": "Artical 3",
+      "content": "Artical 3 content",
+      "author": "lilan.maduranga@gmail.com"
+    },
+    {
+      "title": "sf",
+      "content": "sdf",
+      "author": "sf",
+      "id": 4
+    },
+    {
+      "title": "sf",
+      "content": "sdf",
+      "author": "sf",
+      "id": 5
+    },
+    {
+      "title": "sdf",
+      "content": "sdf",
+      "author": "sdf",
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
   }
+}

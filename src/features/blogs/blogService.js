@@ -16,10 +16,26 @@ const getBlogs = async (token) => {
   return response.data
 }
  
+
+// Get user goals
+const createArticle = async (formData, token) => {
+  console.log(`msg_ formData`,formData);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.post(API_URL, formData, config)
+
+  return response.data
+}
+ 
  
 
 const goalService = { 
     getBlogs, 
+    createArticle, 
 }
 
 export default goalService
