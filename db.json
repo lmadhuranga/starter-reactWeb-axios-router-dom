@@ -1,6 +1,8 @@
 {
     "goals": [
-      { "id": 1, "text": "json-server", "user": "typicode" }
+      { "id": 1, "text": "Madhuranga Senadhera", "user": "typicode" },
+      { "id": 2, "text": "Randika", "user": "typicode" },
+      { "id": 3, "text": "Tharaka", "user": "typicode" }
     ],
     "comments": [
       { "id": 1, "body": "some comment", "postId": 1 }

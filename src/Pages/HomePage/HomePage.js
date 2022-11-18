@@ -63,7 +63,7 @@ const  HomePage = () => {
         {goals.length > 0 ? (
           <div className='goals'>
             {goals.map((goal) => (
-               <label>{goal.text}</label>
+               <label>{goal.text}</label> 
             ))}
           </div>
         ) : (
