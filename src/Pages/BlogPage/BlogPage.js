@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
  
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlogs, createArticle, loadArticle } from '../../features/blogs/blogSlice'; 
+import { getBlogs, createArticle, loadArticle, deleteArticle } from '../../features/blogs/blogSlice'; 
 
 const  BlogPage = () => { 
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const { blogs, isLoading, isError, message, blog, isEdit } = useSelector(
+  const { blogs, isLoading, isError, isSuccess, needToRefresh, message, blog, isEdit } = useSelector(
     (state) => {
       console.log(`msg_ state.blogs`,state.blogs);
       return state.blogs
@@ -29,6 +29,13 @@ const  BlogPage = () => {
   }, []) 
   
   
+  useEffect(() => { 
+    if(!needToRefresh){
+      dispatch(getBlogs());
+    } 
+  }, []) 
+  
+  
   //register user api
   function onSubmit(e) { 
     e.preventDefault();
@@ -36,8 +43,11 @@ const  BlogPage = () => {
     dispatch(createArticle(formData));
   } 
   //register user api
-  function loadEdit(e, id) { 
-     navigate(`/articleEdit/${id}`)
+  function loadEdit(e, id) {
+    navigate(`/articleEdit/${id}`)
+  } 
+  function clickDeleteArticle(e, id) { 
+    dispatch(deleteArticle(id)); 
   } 
 
   const onChange = (e)=> {
@@ -56,7 +66,10 @@ const  BlogPage = () => {
         {blogs.length > 0 ? ( 
           <ul  className='artcles'>
             {blogs.map((blog) => (
-               <li key={blog.id}>{blog.content} <button onClick={(e)=>loadEdit(e, blog.id)}>Edit</button> </li> 
+              <li key={blog.id}>{blog.content}
+               <button onClick={(e)=>loadEdit(e, blog.id)}>Edit</button>
+               <button onClick={(e)=>clickDeleteArticle(e, blog.id)}>Delete</button>
+              </li> 
             ))}
           </ul> 
         ) : (

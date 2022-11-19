@@ -20,7 +20,7 @@ const  ArticleEdit = () => {
 
     let { id } = useParams(); 
     useEffect(() => { 
-        dispatch(loadArticle(id)); 
+        dispatch(loadArticle(id));   
     }, []) 
   
     useEffect(() => { 
@@ -34,6 +34,7 @@ const  ArticleEdit = () => {
   function onSubmit(e) { 
     e.preventDefault(); 
     dispatch(updateArticle(formData));
+    navigate('/blog')
   } 
 
   //register user api
@@ -55,20 +56,7 @@ const  ArticleEdit = () => {
   const { title, content, author } = formData; 
   
   return (
-    <div className="ArticleEdit">
-        <h1>hi blogs page</h1>
-        <section className='content'>
-            {blogs.length > 0 ? ( 
-            <ul  className='artcles'>
-                {blogs.map((blog) => (
-                <li key={blog.id}>{blog.content} <button onClick={(e)=>loadEdit(e, blog.id)}>Edit</button> </li> 
-                ))}
-            </ul> 
-            ) : (
-            <h3>You have not set any blogs</h3>
-            )}
-        </section>
-        <hr />
+    <div className="ArticleEdit"> 
         <div className=''>
             <h2>Edit post {title}</h2>
             <form className="form-signin user" onSubmit={(e)=>{onSubmit(e)}}> 

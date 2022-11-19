@@ -7,7 +7,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
-  isEdit: false,
+  needToRefresh: false,
   message: '',
 }
  
@@ -89,6 +89,26 @@ export const updateArticle = createAsyncThunk(
       }
     }
 )
+// Create new goal
+export const deleteArticle = createAsyncThunk(
+    'blogs/delete',
+    async (id, thunkAPI) => {
+        console.log(`msg_ Dlete article id `,id);
+      try {
+        // const token = thunkAPI.getState().auth.user.toke
+        const token = 's'
+        return await blogService.deleteArticle(id, token)
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString() 
+        return thunkAPI.rejectWithValue(message)
+      }
+    }
+)
 
 export const blogSlice = createSlice({
     name: 'blogs',
@@ -128,6 +148,8 @@ export const blogSlice = createSlice({
         })
         .addCase(getBlogs.fulfilled, (state, action) => { 
           state.isLoading = false
+          state.needToRefresh = false
+          state.isSuccess = true 
           state.isSuccess = true 
           state.blogs = action.payload
         })
@@ -141,11 +163,23 @@ export const blogSlice = createSlice({
         })
         .addCase(loadArticle.fulfilled, (state, action) => { 
           state.isLoading = false
-          state.isSuccess = true 
-          state.isEdit = true 
+          state.isSuccess = true  
           state.blog = action.payload
         })
         .addCase(loadArticle.rejected, (state, action) => {
+          state.isLoading = false
+          state.isError = true
+          state.message = action.payload
+        })
+        .addCase(deleteArticle.pending, (state) => {
+          state.isLoading = true
+        })
+        .addCase(deleteArticle.fulfilled, (state, action) => { 
+          state.isLoading = false
+          state.isSuccess = true  
+          state.needToRefresh = true  
+        })
+        .addCase(deleteArticle.rejected, (state, action) => {
           state.isLoading = false
           state.isError = true
           state.message = action.payload

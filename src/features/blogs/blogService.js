@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useDispatch } from 'react-redux'; 
 
 const API_URL = 'http://localhost:3001/blogs';
  
@@ -59,12 +60,26 @@ const updateArticle = async (formData, token) => {
   return response.data
 }
  
+// Get user goals
+const deleteArticle = async (id, token) => {
+  console.log(`msg_ service id`,id);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.delete(`${API_URL}/${id}`, config) 
+  return response.data
+}
+ 
  
 
 const goalService = { 
     getBlogs, 
     createArticle, 
     updateArticle, 
+    deleteArticle, 
     loadArticle, 
 }
 

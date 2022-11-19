@@ -20,13 +20,13 @@
     {
       "id": 1,
       "title": "Artical 1",
-      "content": "Artical ffff",
+      "content": "Artical 1 page",
       "author": "lilan.maduranga@gmail.com"
     },
     {
       "id": 2,
       "title": "Artical 2",
-      "content": "Artical 2 content",
+      "content": "Artical 2 content modifie",
       "author": "lilan.maduranga@gmail.com"
     },
     {
@@ -34,24 +34,6 @@
       "title": "Artical 3",
       "content": "Artical 3 content",
       "author": "lilan.maduranga@gmail.com"
-    },
-    {
-      "title": "sf",
-      "content": "sdf",
-      "author": "sf",
-      "id": 4
-    },
-    {
-      "title": "sf",
-      "content": "sdf",
-      "author": "sf",
-      "id": 5
-    },
-    {
-      "title": "sdf",
-      "content": "sdf",
-      "author": "sdf",
-      "id": 6
     }
   ],
   "comments": [
