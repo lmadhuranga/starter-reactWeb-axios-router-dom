@@ -57,7 +57,6 @@ export const createArticle = createAsyncThunk(
       try {
         // const token = thunkAPI.getState().auth.user.toke
         const token = 's'
-        console.log(`msg_ token`,token);
         return await blogService.createArticle(blogData, token)
       } catch (error) {
         const message =
@@ -72,14 +71,13 @@ export const createArticle = createAsyncThunk(
 )
 // Create new goal
 export const updateArticle = createAsyncThunk(
-    'blogs/create',
+    'blogs/update',
     async (blogData, thunkAPI) => {
-        console.log(`msg_ blogData`,blogData);
+        console.log(`msg_updateArticle blogData `,blogData);
       try {
         // const token = thunkAPI.getState().auth.user.toke
         const token = 's'
-        console.log(`msg_ token`,token);
-        return await blogService.createArticle(blogData, token)
+        return await blogService.updateArticle(blogData, token)
       } catch (error) {
         const message =
           (error.response &&
@@ -109,6 +107,18 @@ export const blogSlice = createSlice({
             state.blogs.push(action.payload)
         })
         .addCase(createArticle.rejected, (state, action) => {
+            state.isLoading = false
+            state.isError = true
+            state.message = action.payload
+        })
+        .addCase(updateArticle.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(updateArticle.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true 
+        })
+        .addCase(updateArticle.rejected, (state, action) => {
             state.isLoading = false
             state.isError = true
             state.message = action.payload

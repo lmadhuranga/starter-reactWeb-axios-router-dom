@@ -23,6 +23,12 @@ const  ArticleEdit = () => {
         dispatch(loadArticle(id)); 
     }, []) 
   
+    useEffect(() => { 
+        if(blog) {
+            setFormData({...blog})
+        } 
+    }, [blog]) 
+  
   
   //register user api
   function onSubmit(e) { 
@@ -46,11 +52,23 @@ const  ArticleEdit = () => {
     });
   } 
 
-  const loadForm = () => {
-    
-    const { title, content, author } = formData;
-
-    return (
+  const { title, content, author } = formData; 
+  
+  return (
+    <div className="ArticleEdit">
+        <h1>hi blogs page</h1>
+        <section className='content'>
+            {blogs.length > 0 ? ( 
+            <ul  className='artcles'>
+                {blogs.map((blog) => (
+                <li key={blog.id}>{blog.content} <button onClick={(e)=>loadEdit(e, blog.id)}>Edit</button> </li> 
+                ))}
+            </ul> 
+            ) : (
+            <h3>You have not set any blogs</h3>
+            )}
+        </section>
+        <hr />
         <div className=''>
             <h2>Edit post {title}</h2>
             <form className="form-signin user" onSubmit={(e)=>{onSubmit(e)}}> 
@@ -60,25 +78,6 @@ const  ArticleEdit = () => {
                 <input type="submit" alt="Submit" className='btnRegister' /> 
             </form>
         </div>
-    );
-  }
-  
-  return (
-    <div className="ArticleEdit">
-      <h1>hi blogs page</h1>
-      <section className='content'>
-        {blogs.length > 0 ? ( 
-          <ul  className='artcles'>
-            {blogs.map((blog) => (
-               <li key={blog.id}>{blog.content} <button onClick={(e)=>loadEdit(e, blog.id)}>Edit</button> </li> 
-            ))}
-          </ul> 
-        ) : (
-          <h3>You have not set any blogs</h3>
-        )}
-      </section>
-      <hr />
-        {isLoading==false?loadForm(formData):<h1>loading..</h1>}
       <ul>
         <li>{isLoading.toString()}</li>
         <li>{isError.toString()}</li>

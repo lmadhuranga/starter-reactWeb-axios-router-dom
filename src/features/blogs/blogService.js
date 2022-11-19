@@ -44,11 +44,27 @@ const createArticle = async (formData, token) => {
   return response.data
 }
  
+
+// Get user goals
+const updateArticle = async (formData, token) => {
+  console.log(`msg_ service formData`,formData);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.put(`${API_URL}/${formData.id}`, formData, config)
+
+  return response.data
+}
+ 
  
 
 const goalService = { 
     getBlogs, 
     createArticle, 
+    updateArticle, 
     loadArticle, 
 }
 
