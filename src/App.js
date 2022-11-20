@@ -9,8 +9,9 @@ function App(params) {
    return(
       <Router>
          <Routes>
-            <Route exact path="/" element={<HomePage/>}/>  
+            {/* <Route exact path="/" element={<HomePage/>}/>   */}
             <Route exact path="/blog" element={<BlogPage/>}/>  
+            <Route exact path="/" element={<BlogPage/>}/>  
             <Route exact path="/articleEdit/:id" element={<ArticleEdit/>}/>  
          </Routes>
       </Router>

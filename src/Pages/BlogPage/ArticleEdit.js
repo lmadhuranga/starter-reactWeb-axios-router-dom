@@ -5,29 +5,29 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlogs, updateArticle, loadArticle } from '../../features/blogs/blogSlice'; 
 
-const  ArticleEdit = () => { 
-    let navigate = useNavigate();
-    const dispatch = useDispatch();
-    const { blogs, isLoading, isError, message, blog, isEdit } = useSelector(
-        (state) => { return state.blogs }
-    ) 
+const  ArticleEdit = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading, isError, message, blog } = useSelector(
+    (state) => { return state.blogs }
+  ) 
 
-    const [formData, setFormData] = useState({
-        title: '',
-        content: '',
-        author: '',
-    })
+  const [formData, setFormData] = useState({
+      title: '',
+      content: '',
+      author: '',
+  })
 
-    let { id } = useParams(); 
-    useEffect(() => { 
-        dispatch(loadArticle(id));   
-    }, []) 
-  
-    useEffect(() => { 
-        if(blog) {
-            setFormData({...blog})
-        } 
-    }, [blog]) 
+  let { id } = useParams(); 
+  useEffect(() => { 
+    dispatch(loadArticle(id));   
+  }, []) 
+
+  useEffect(() => { 
+    if(blog) {
+      setFormData({...blog})
+    } 
+  }, [blog]) 
   
   
   //register user api

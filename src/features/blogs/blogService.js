@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { useDispatch } from 'react-redux'; 
+import axios from 'axios' 
 
 const API_URL = 'http://localhost:3001/blogs';
  
@@ -19,6 +18,7 @@ const getBlogs = async (token) => {
 
 // Get user goals
 const loadArticle = async (id, token) => {
+  console.log(`msg_ loadArticle`, );
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

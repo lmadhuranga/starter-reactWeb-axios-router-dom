@@ -9,12 +9,12 @@ const  BlogPage = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const { blogs, isLoading, isError, isSuccess, needToRefresh, message, blog, isEdit } = useSelector(
-    (state) => {
-      console.log(`msg_ state.blogs`,state.blogs);
+    (state) => { 
       return state.blogs
     }
   ) 
 
+ 
   const [formData, setFormData] = useState({
     title:'',
     content:'',
@@ -23,42 +23,36 @@ const  BlogPage = () => {
 
   const { title, content, author } = formData;
   
-  
   useEffect(() => { 
     dispatch(getBlogs()); 
-  }, []) 
-  
-  
-  useEffect(() => { 
-    if(!needToRefresh){
-      dispatch(getBlogs());
-    } 
-  }, []) 
-  
-  
-  //register user api
-  function onSubmit(e) { 
-    e.preventDefault();
-    console.log(`msg_ formData`,formData); 
-    dispatch(createArticle(formData));
+  }, []);
+
+  if(needToRefresh && !isLoading){
+    dispatch(getBlogs());  
   } 
-  //register user api
-  function loadEdit(e, id) {
+
+  function loadEditPage(e, id) {
     navigate(`/articleEdit/${id}`)
-  } 
+  }
+
   function clickDeleteArticle(e, id) { 
     dispatch(deleteArticle(id)); 
   } 
-
+  
   const onChange = (e)=> {
     e.preventDefault();
- 
+    
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   } 
   
+  function onSubmit(e) { 
+    e.preventDefault(); 
+    dispatch(createArticle(formData)); 
+  }
+
   return (
     <div className="BlogPage">
       <h1>hi blogs page</h1>
@@ -67,7 +61,7 @@ const  BlogPage = () => {
           <ul  className='artcles'>
             {blogs.map((blog) => (
               <li key={blog.id}>{blog.content}
-               <button onClick={(e)=>loadEdit(e, blog.id)}>Edit</button>
+               <button onClick={(e)=>loadEditPage(e, blog.id)}>Edit</button>
                <button onClick={(e)=>clickDeleteArticle(e, blog.id)}>Delete</button>
               </li> 
             ))}

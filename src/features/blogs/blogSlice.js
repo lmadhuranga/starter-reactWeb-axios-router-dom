@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
 import blogService from './blogService'
 
 const initialState = {
@@ -12,11 +12,12 @@ const initialState = {
 }
  
 
-// Get user blogs
+// Get blog blogs
 export const getBlogs = createAsyncThunk(
   'blogs/getAll',
   async (_, thunkAPI) => {
     try {
+        // console.log(`msg_ blogs/getAll` );
       // const token = thunkAPI.getState().auth.user.token
       return await blogService.getBlogs()
     } catch (error) {
@@ -30,7 +31,7 @@ export const getBlogs = createAsyncThunk(
     }
   }
 ) 
-// Get user blogs
+// Get blog blogs
 export const loadArticle = createAsyncThunk(
   'blogs/getArticle',
   async (id, thunkAPI) => {
@@ -53,7 +54,7 @@ export const loadArticle = createAsyncThunk(
 export const createArticle = createAsyncThunk(
     'blogs/create',
     async (blogData, thunkAPI) => {
-        console.log(`msg_ blogData`,blogData);
+        // console.log(`msg_ blogData`,blogData);
       try {
         // const token = thunkAPI.getState().auth.user.toke
         const token = 's'
@@ -69,11 +70,11 @@ export const createArticle = createAsyncThunk(
       }
     }
 )
-// Create new goal
+// Create update goal
 export const updateArticle = createAsyncThunk(
     'blogs/update',
     async (blogData, thunkAPI) => {
-        console.log(`msg_updateArticle blogData `,blogData);
+        // console.log(`msg_updateArticle blogData `,blogData);
       try {
         // const token = thunkAPI.getState().auth.user.toke
         const token = 's'
@@ -93,10 +94,10 @@ export const updateArticle = createAsyncThunk(
 export const deleteArticle = createAsyncThunk(
     'blogs/delete',
     async (id, thunkAPI) => {
-        console.log(`msg_ Dlete article id `,id);
+        // console.log(`msg_ Dlete article id `,id);
       try {
         // const token = thunkAPI.getState().auth.user.toke
-        const token = 's'
+        const token = 's' 
         return await blogService.deleteArticle(id, token)
       } catch (error) {
         const message =
@@ -123,8 +124,8 @@ export const blogSlice = createSlice({
         })
         .addCase(createArticle.fulfilled, (state, action) => {
             state.isLoading = false
-            state.isSuccess = true
-            state.blogs.push(action.payload)
+            state.needToRefresh = true 
+            state.isSuccess = true 
         })
         .addCase(createArticle.rejected, (state, action) => {
             state.isLoading = false
@@ -133,6 +134,7 @@ export const blogSlice = createSlice({
         })
         .addCase(updateArticle.pending, (state) => {
             state.isLoading = true
+            
         })
         .addCase(updateArticle.fulfilled, (state, action) => {
             state.isLoading = false
@@ -175,9 +177,10 @@ export const blogSlice = createSlice({
           state.isLoading = true
         })
         .addCase(deleteArticle.fulfilled, (state, action) => { 
-          state.isLoading = false
-          state.isSuccess = true  
-          state.needToRefresh = true  
+            state.needToRefresh = true 
+            // console.log(`msg_  state.needToRefresh`, state.needToRefresh); 
+            state.isLoading = false
+            state.isSuccess = true  
         })
         .addCase(deleteArticle.rejected, (state, action) => {
           state.isLoading = false
