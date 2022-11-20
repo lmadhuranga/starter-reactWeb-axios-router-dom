@@ -21,7 +21,7 @@ const  ArticleEdit = () => {
   let { id } = useParams(); 
   useEffect(() => { 
     dispatch(loadArticle(id));   
-  }, []) 
+  }, [id]) 
 
   useEffect(() => { 
     if(blog) {
@@ -35,6 +35,11 @@ const  ArticleEdit = () => {
     e.preventDefault(); 
     dispatch(updateArticle(formData));
     navigate('/blog')
+    setFormData({
+      title: '',
+      content: '',
+      author: ''
+    })
   } 
 
   //register user api

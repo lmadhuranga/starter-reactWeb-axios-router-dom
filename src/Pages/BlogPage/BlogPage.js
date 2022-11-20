@@ -26,10 +26,12 @@ const  BlogPage = () => {
   useEffect(() => { 
     dispatch(getBlogs()); 
   }, []);
-
-  if(needToRefresh && !isLoading){
-    dispatch(getBlogs());  
-  } 
+  
+  useEffect(() => {
+    if(needToRefresh && !isLoading){
+      dispatch(getBlogs());  
+    }
+  }, [needToRefresh, isLoading]);
 
   function loadEditPage(e, id) {
     navigate(`/articleEdit/${id}`)
@@ -50,7 +52,14 @@ const  BlogPage = () => {
   
   function onSubmit(e) { 
     e.preventDefault(); 
-    dispatch(createArticle(formData)); 
+    dispatch(createArticle(formData))
+    .then((e)=> {
+      setFormData({
+        title:'',
+        content:'',
+        author:''
+      });
+    });
   }
 
   return (
