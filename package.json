@@ -29,7 +29,7 @@
     "build:test": "env-cmd -f .env.test react-scripts build",
     "build:prod": "env-cmd -f .env.prod react-scripts build",
     "deploy": "env-cmd -f .env.prod react-scripts build",
-    "build:dev": "env-cmd -f .env.dev react-scripts build",
+    "build:dev": "env-cmd -f .env.dev react-scripts build", 
     "dd": "json-server -w db.json --port 3001",
     "ss": "start ss.sh"
   },

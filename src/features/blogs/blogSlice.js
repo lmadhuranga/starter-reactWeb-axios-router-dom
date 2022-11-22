@@ -133,8 +133,7 @@ export const blogSlice = createSlice({
             state.message = action.payload
         })
         .addCase(updateArticle.pending, (state) => {
-            state.isLoading = true
-            
+            state.isLoading = true            
         })
         .addCase(updateArticle.fulfilled, (state, action) => {
             state.isLoading = false
