@@ -6,13 +6,9 @@ const { getGoals,
      deletePost 
 } = require('../controllers/goalController')
 
-router.get('/', getGoals)
+router.get('/', getGoals).post('/', createPost)
 
-router.post('/', createPost)
-
-router.put('/:id', udpatePost)
-
-router.delete('/:id', deletePost)
+router.put('/:id', udpatePost).delete('/:id', deletePost)
 
 
 module.exports = router
