@@ -4,6 +4,7 @@ const getGoals =  (req, res)=>{
 }
 
 const createPost = (req, res)=>{
+    console.log(`msg_ req.body`,req.body);
     const msg = 'create goals'
     res.status(200).json({msg})
 }
