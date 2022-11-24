@@ -13,7 +13,8 @@ const createPost = asyncHandler( async (req, res)=>{
     }
     
     const goal = await Goal.create({
-        name:req.body.name
+        name:req.body.name,
+        user: req.user.id
     }) 
     res.status(203).json(goal)
 })
@@ -25,7 +26,11 @@ const udpatePost =  asyncHandler( async (req, res)=>{
         throw new Error('Goal not found')
     }
 
-    const udpateGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    const udpateGoal = await Goal.findByIdAndUpdate(
+        req.params.id, 
+        {...req.body, user:req.user.id}, 
+        {new: true});
+        
     res.status(200).json(udpateGoal)
 })
 
