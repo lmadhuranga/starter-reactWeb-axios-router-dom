@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './HomePage.css';
 import { useNavigate } from "react-router-dom";
 import utils from '../../helpers/utils';
+import Solution from '../Solution';
 
 import axios from 'axios';
 import swal from 'sweetalert2';
@@ -27,7 +28,12 @@ const  HomePage = () => {
   useEffect(() => {
     dispatch(getGoals()) 
   }, [])
-  
+
+  const menuConfig = [
+      { title: 'Home' }, 
+      { title: 'AboutUs',  subItems:['Vision', 'Mission'] },
+      { title: 'ContactUs',  subItems:[ 'Email', 'Telephone'] },
+  ];
   
   //register user api
   function RegisterCustomerApi(e) { 
@@ -77,6 +83,8 @@ const  HomePage = () => {
         <input type="email" name='email' value={email} onChange={(e) => onChange(e)}  className="form-control-cus" placeholder="Email " required />
         <input type="submit" alt="Submit" className='btnRegister' /> 
       </form>
+      <hr /> 
+      <Solution menuConfig={menuConfig} ></Solution> 
     </div>
   );
 }
